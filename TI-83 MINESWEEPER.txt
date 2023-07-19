@@ -1,0 +1,306 @@
+:Lbl R
+:ClrHome
+:Menu(“MINESWEEPER”,”EASY      (15)”,E,”NORMAL    (25)”,N,”HARD      (35)”,H,”CUSTOM (1-127)”,C
+:
+:Lbl E
+:15➝B
+:Goto S
+:Lbl N
+:25➝B
+:Goto S
+:
+:Lbl H
+:35➝B
+:Goto S
+:
+:Lbl C
+:Disp “HOW MANY MINES
+:Disp “WOULD YOU LIKE?
+:Prompt B
+:If B>127 or B<1
+:Then
+:ClrHome
+:Disp “THE NUMBER OF 
+:Disp “MINES SHOULD BE
+:Disp “BETWEEN 1-127.
+:
+:Repeat K
+:getKey➝K
+:
+:End
+:Goto R
+:
+:End
+:
+:Lbl S
+:Output(1,1,”................................................................................................................................
+:
+:{8,16➝dim([F]
+:0[F]➝[F]
+:{8,16➝dim([G]
+:0[G]➝[G]
+:
+:0➝D
+:Output(2,3,”/
+:Output(2,4,B
+:For(I,1,B
+:randInt(1,8➝Y
+:randInt(1,16➝X
+:
+:If [F](Y,X)≠9
+Then
+:9➝[F](Y,X
+:
+:If Y<8
+:Then
+:If [F](Y+1,X)≠9
+:[F](Y+1,X)+1➝[F](Y+1,X
+:
+:End
+:If Y>1
+:Then
+:If [F](Y-1,X)≠9
+:[F](Y-1,X)+1➝[F](Y-1,X
+:
+:End
+:If [F](Y,X+1)≠9
+:[F](Y,X+1)+1➝[F]](Y,X+1
+:
+:End
+:If X>1
+:Then
+:If [F](Y,X-1)≠9
+:[F](Y,X-1)+1➝[F](Y,X-1
+:
+:End
+:If Y<8 and X<16
+:Then
+:If [F](Y+1,X+1)≠9
+:[F](Y+1,X+1)+1➝[F](Y+1,X+1
+:
+:End
+:If Y<8 and X>1
+:Then
+:If [F](Y+1,X-1)≠9
+:[F](Y+1,X-1)+1➝[F](Y+1,X-1
+:
+:End
+:If Y>1 and X<16
+:Then
+:If [F](Y-1,X+1)≠9
+:[F](Y-1,X+1)+1➝[F](Y-1,X+1
+:
+:End
+:If Y>1 and X>1
+:Then
+:If [F](Y-1,X-1)≠9
+:[F](Y-1,X-1)+1➝[F](Y-1,X-1
+:
+:End
+:
+:D+1➝D
+:Output(2,2,D
+:If D=10
+:Then
+:Output(2,4,”/
+:Output(2,5,B
+:
+:Else
+:If D=100
+:Then
+:Output(2,5,”/
+:Output(2,6,B
+:
+:End
+:End
+:
+:Else
+:I-1➝I
+:
+:End
+:End
+:
+:Output(2,2,”.......
+:
+:5➝Y
+:9➝X
+:Output(Y,X,”*
+:0➝F
+:0➝G
+:
+:Repeat 0
+:Repeat K
+:getKey➝K
+:
+:End
+:
+:If K=25 and Y>1 or K=34 and Y<8 or K=26 and X<16 or K=24 and X>1
+:Then
+:If [G](Y,X)=0
+:Then
+:Output(Y,X,”.
+:
+:Else
+:If [G](Y,X)=1
+:Then
+:If [F](Y,X)≠0
+:Then
+:Output(Y,X,[F](Y,X
+:
+:Else
+:Output(Y,X,” 
+:
+:End
+:
+:Else
+:Output(Y,X,”P
+:
+:End
+:End
+:
+:If K=25
+:Then
+:Y-1➝Y
+:
+:Else
+:If K=34
+:Then
+:Y+1➝Y
+:
+:Else
+:If K=26
+:Then
+:X+1➝X
+:
+:Else
+:If K=24
+:Then
+:X-1➝X
+:
+:End
+:End
+:End
+:End
+:
+:Output(Y,X,”*
+:
+:End
+:
+:If K=21 and [G](Y,X)=0
+:Then
+:
+:If [F](Y,X)≠9 and [G](Y,X)=0
+:Then
+:1➝[G](Y,X
+:G+1➝G
+:
+:If G=128-B
+:Then
+:Output(3,4,”**********
+:Output(4,4,”*YOU WIN!*
+:Output(5,4,”**********
+:
+:0➝K
+:While K≠105
+:getKey≠K
+:
+:End
+:
+:Menu(“CONGRATULATIONS!”,”PLAY AGAIN”,R,”EXIT”,Q
+:
+:End
+:
+:Else
+:For(I,1,8
+:For(J,1,16
+:If [G](I,J)=2 and [F] (I,J)≠9
+:Then
+:Output(I,J,”X
+:
+:Else
+:If[G](I,J)≠2 and [F](I,J)=9
+:Then
+:Output(I,J,”+
+:
+:Else
+:If [F](I,J)=0
+:Then
+:Output(I,J,” 
+:Else
+:If [F](I,J)<9
+:Then
+:Output(I,J,[F](I,J
+:
+:End
+:End
+:End
+:End
+:End
+:End
+:
+:Output(3,3,”***********
+:Output(4,3,”*YOU LOSE!*
+:Output(5,3,”***********
+:
+:0➝K
+:While≠105
+:getKey➝K
+:
+:End
+:
+:Menu(“TRY AGAIN?”,”YES”,R,”NO”,Q
+:
+:End
+:
+:End
+:
+:If K=31 and [G](y,X)≠1
+:Then
+:
+:If [G](Y,X)=0
+:Then
+:2➝[G](Y,X
+:F+1➝F
+:
+:Else
+:0➝[G](Y,X
+:F-1➝F
+:
+:End
+:
+:If F=B
+:Then
+:0➝C
+:For(I,1,8
+:For(J,1,16
+:If [G](I,J)=2 and [F](I,J)=9
+:Then
+:C+1➝C
+:
+:End
+:
+:End
+:End
+:
+:If C=B
+:Then
+:Output(3,4,”**********
+:Output(4,4,”*YOU WIN!*
+:Output(5,4,”**********
+:
+:0➝K
+:While K≠105
+:getKey≠K
+:
+:End
+:
+:Menu(“CONGRATULATIONS!”,”PLAY AGAIN”,R,”EXIT”,Q
+:
+:End
+:End
+:End
+:
+:End
+:
+:Lbl Q
+:ClrHome
